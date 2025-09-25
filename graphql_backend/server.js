@@ -13,7 +13,7 @@ const schema = buildSchema(`
   }
 
   type Query {
-    hello: String
+    # This will be picked by Qevlar as TOP_LEVEL_FIELD
     user(id: ID!): User
   }
 `);
@@ -26,7 +26,6 @@ const users = [
 
 // Define resolvers
 const root = {
-  hello: () => "Hello from GraphQL on Express 🚀",
   user: ({ id }) => users.find(u => u.id === id),
 };
 
@@ -40,9 +39,9 @@ app.use(
   })
 );
 
-app.get('/',(req,res)=>{
-    res.json("Hello , Server is running")
-})
+app.get("/", (req, res) => {
+  res.json("Hello, server is running");
+});
 
 app.listen(4000, () => {
   console.log("✅ GraphQL API running at http://localhost:4000/graphql");
